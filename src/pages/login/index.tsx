@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import styles from './styles.css'
+import styles from './styles.module.css'
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido.'),

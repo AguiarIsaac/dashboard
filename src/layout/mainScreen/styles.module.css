@@ -1,0 +1,26 @@
+.contentElement {
+  width: 100%;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+.headerElement {
+  width: 100%;
+  height: 6vh;
+  padding: 0.25rem;
+  border-bottom: 1px solid #e5e7eb;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.imgElement {
+  width: 3rem;
+}
+
+.optionsElement{
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}

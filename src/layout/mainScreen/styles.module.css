@@ -19,8 +19,32 @@
   width: 3rem;
 }
 
-.optionsElement{
+.optionsElement {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.asideMenu {
+  width: 15%;
+  min-height: 94vh;
+  position: fixed;
+  padding: 1rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.list li a {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+/* Alterar isso aqui depois pra pegar cor das variaveis */
+.list li svg {
+  color: #0e7490;
 }

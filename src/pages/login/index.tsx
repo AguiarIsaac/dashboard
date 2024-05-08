@@ -17,6 +17,7 @@ export function Login() {
   const {
     register, 
     handleSubmit,
+    reset,
     formState: {errors}
   } = useForm<LoginProps>({
     resolver: zodResolver(loginSchema)
@@ -24,6 +25,7 @@ export function Login() {
 
   function handleLogin(data: LoginProps) {
     console.log(data)
+    reset()
   }
   
   return (

@@ -76,13 +76,7 @@ export function MainScreen() {
         </nav>
       </aside>
 
-      <main>
-        {/* tudo vai ficar aqui dentro */}
-
-        <section></section>
-        <section></section>
-        <section></section>
-        <section></section>
+      <main className={styles.mainContentElement}>
       </main>
     </div>
   );

@@ -13,8 +13,10 @@ interface UserProps {
 export const AuthContext = createContext({});
 
 export function AuthProvider({children}: ChildrenProps) {
-  const [user, setUser] = useState<UserProps>()
+  // Estados
+  const [user, setUser] = useState<UserProps | null>()
 
+  // verifico se tenho usuário e token válido
   useEffect(() => {
     const userToken = localStorage.getItem("user_token")
     const usersStorage = localStorage.getItem("users_bd")
@@ -28,7 +30,8 @@ export function AuthProvider({children}: ChildrenProps) {
     }
   },[])
 
-  function sign({email, password}: UserProps) {
+  // LOGIN
+  function signin({email, password}: UserProps) {
     const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
 
     const hasUser = usersStorage.filter((user:UserProps) => user.email === email)
@@ -48,4 +51,40 @@ export function AuthProvider({children}: ChildrenProps) {
       return "Usuário não cadastrado"
     }
   }
+
+  // CRIAÇÃO DE USUÁRIO
+  function signup({email, password}: UserProps) {
+    const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
+
+    const hasUser = usersStorage.filter((user:UserProps) => user.email === email)
+
+    if(hasUser) {
+      return 'Já tem uma conta com esse E-mail';
+    }
+
+    let newUser;
+
+    if(usersStorage) {
+      newUser = [...usersStorage, {email, password}]
+    } else {
+      newUser = [{email, password}]
+    }
+
+    localStorage.setItem("users_bd", JSON.stringify(newUser));
+
+    return;
+  }
+
+  // LOGOF
+  function signout() {
+    setUser(null)
+
+    localStorage.removeItem("user_token");
+  }
+
+  return (
+    <AuthContext.Provider value={{ user, signed: !!user, signin, signup, signout }}>
+      {children}
+    </AuthContext.Provider>
+  )
 }

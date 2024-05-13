@@ -10,7 +10,21 @@ interface UserProps {
   password: string
 }
 
-export const AuthContext = createContext({});
+interface AuthContextProps {
+  user: UserProps | null | undefined;
+  signed: boolean;
+  signin: (credentials: UserProps) => void;
+  signup: (credentials: UserProps) => void;
+  signout: () => void;
+}
+
+export const AuthContext = createContext<AuthContextProps>({
+  user: null,
+  signed: false,
+  signin: () => {},
+  signup: () => {},
+  signout: () => {},
+});
 
 export function AuthProvider({children}: ChildrenProps) {
   // Estados
@@ -32,47 +46,60 @@ export function AuthProvider({children}: ChildrenProps) {
 
   // LOGIN
   function signin({email, password}: UserProps) {
-    const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
 
-    const hasUser = usersStorage.filter((user:UserProps) => user.email === email)
+    // REFAZER O FLUXO TBM
+    // const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
 
-    if(hasUser) {
-      if (hasUser[0].email === email && hasUser[0].password === password) {
-        const token = Math.random().toString(36).substring(2);
-        localStorage.setItem("user_token", JSON.stringify({email, token}))
+    console.log({email,password})
+    setUser({email,password})
 
-        setUser({email, password})
+    // const hasUser = usersStorage.filter((user:UserProps) => user.email === email)
 
-        return;
-      } else {
-        return 'Email ou senha errado'
-      }
-    } else {
-      return "Usuário não cadastrado"
-    }
+    // if(hasUser) {
+    //   if (hasUser[0].email === email && hasUser[0].password === password) {
+    //     const token = Math.random().toString(36).substring(2);
+    //     localStorage.setItem("user_token", JSON.stringify({email, token}))
+
+    //     setUser({email, password})
+
+    //     return;
+    //   } else {
+    //     return 'Email ou senha errado'
+    //   }
+    // } else {
+    //   return "Usuário não cadastrado"
+    // }
   }
 
   // CRIAÇÃO DE USUÁRIO
   function signup({email, password}: UserProps) {
-    const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
+    // REFAZER FLUXO, NÃO TÁ FUNCIONANDO!
+    
+    console.log({email,password})
+    // const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
 
-    const hasUser = usersStorage.filter((user:UserProps) => user.email === email)
+    // const hasUser = usersStorage.filter((user:UserProps) => user.email === email)    
+    // if(hasUser) {
+    //   return 'Já tem uma conta com esse E-mail';
+    // }
 
-    if(hasUser) {
-      return 'Já tem uma conta com esse E-mail';
-    }
+    // let newUser;
 
-    let newUser;
+    // if(usersStorage) {
+    //   newUser = [...usersStorage, {email, password}]
+    // } else {
+    //   const user = {
+    //     email,
+    //     password
+    //   }
 
-    if(usersStorage) {
-      newUser = [...usersStorage, {email, password}]
-    } else {
-      newUser = [{email, password}]
-    }
+    //   console.log('User entrando no array: ' + user)
+    //   newUser = [user]
+    // }
 
-    localStorage.setItem("users_bd", JSON.stringify(newUser));
+    // localStorage.setItem("users_bd", JSON.stringify(newUser));
 
-    return;
+    // return;
   }
 
   // LOGOF
@@ -81,6 +108,7 @@ export function AuthProvider({children}: ChildrenProps) {
 
     localStorage.removeItem("user_token");
   }
+
 
   return (
     <AuthContext.Provider value={{ user, signed: !!user, signin, signup, signout }}>

@@ -1,7 +1,10 @@
-import { Login } from "./pages/login";
+import { AuthProvider } from "./context/Auth";
+import { RoutesApp } from "./routes";
 
 export function App() {
   return (
-    <Login />
+    <AuthProvider>
+      <RoutesApp />
+    </AuthProvider>
   )
 }

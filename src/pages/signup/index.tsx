@@ -11,10 +11,7 @@ import { useState } from "react";
 const SignupSchema = z.object({
   email: z.string().email('Email inválido.'),
   password: z.string().min(6, {message: 'Senha deve conter no mínimo 6 caracteres.'}),
-  confirmPassword: z.string().min(6, {message: 'Senha deve conter no mínimo 6 caracteres.'}),
-  // confirmPassword: z.string().refine((data: any) => data.password === data.confirmPassword, {
-  //   message: 'As senhas não coincidem.',
-  // }),
+  confirmPassword: z.string().min(6, {message: 'Senha deve conter no mínimo 6 caracteres.'})
 });
 
 type SignupProps = z.infer<typeof SignupSchema>
@@ -22,6 +19,7 @@ type SignupProps = z.infer<typeof SignupSchema>
 export function Signup() {
 
   const [errorPersonalized, setErrorPersonalized] = useState('')
+  const [emailExistsError, setEmailExistsError] = useState('')
 
   const { signup } = useAuth()
   const navigate = useNavigate()
@@ -38,9 +36,15 @@ export function Signup() {
   function handleLogin(data: SignupProps) {
 
     if(data.password === data.confirmPassword) {
-      signup({email: data.email, password:data.password})
-      reset()
-      navigate('/login')
+      const sendUser = signup({email: data.email, password:data.password})
+      // DEPOIS MELHORAR QUESTÃO DAS NOTIFICAÇÕES
+      if(sendUser != null) {
+        setEmailExistsError(sendUser)
+      } else {
+        reset()
+        navigate('/login')
+      }
+
     } else {
       setErrorPersonalized("As senhas não coincidem")
     }
@@ -71,6 +75,7 @@ export function Signup() {
               {...register('email', {required: true})}
             />
             {errors.email && <span style={{color:'#dc2626', fontSize:'14px'}}>{errors.email.message}</span>}
+            {emailExistsError.length > 0 && <span style={{color:'#dc2626', fontSize:'14px'}}>{emailExistsError}</span>}
           </label>
 
           <label>

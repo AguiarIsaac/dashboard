@@ -13,16 +13,16 @@ interface UserProps {
 interface AuthContextProps {
   user: UserProps | null | undefined;
   signed: boolean;
-  signin: (credentials: UserProps) => void;
-  signup: (credentials: UserProps) => void;
+  signin: (credentials: UserProps) => string | null | undefined;
+  signup: (credentials: UserProps) => string | null| undefined;
   signout: () => void;
 }
 
 export const AuthContext = createContext<AuthContextProps>({
   user: null,
   signed: false,
-  signin: () => {},
-  signup: () => {},
+  signin: () => undefined,
+  signup: () => undefined,
   signout: () => {},
 });
 
@@ -30,7 +30,7 @@ export function AuthProvider({children}: ChildrenProps) {
   // Estados
   const [user, setUser] = useState<UserProps | null>()
 
-  // verifico se tenho usuário e token válido
+  // PEGAR USUÁRIO DO LOCALSTORAGE E SETAR NO ESTADO
   useEffect(() => {
     const userToken = localStorage.getItem("user_token")
     const usersStorage = localStorage.getItem("users_bd")
@@ -46,67 +46,62 @@ export function AuthProvider({children}: ChildrenProps) {
 
   // LOGIN
   function signin({email, password}: UserProps) {
+  // FLUXO SERÁ REFEITO QUANDO FOR DECIDIDO COMO SERÁ O CONTROLE DOS USUÁRIOS. TOKEN será enviado do back e salvo no estado e localstorage
+    const storage = localStorage.getItem('users')
 
-    // REFAZER O FLUXO TBM
-    // const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
+    if(storage) {
+      const userStorage = JSON.parse(storage)
 
-    console.log({email,password})
-    setUser({email,password})
+      const hasUser = userStorage.filter((user: UserProps) => user.email === email)
 
-    // const hasUser = usersStorage.filter((user:UserProps) => user.email === email)
+      if(hasUser.length > 0) {
+        const verifyPassword = userStorage.filter((user: UserProps) => user.password === password)
+        console.log(verifyPassword)
 
-    // if(hasUser) {
-    //   if (hasUser[0].email === email && hasUser[0].password === password) {
-    //     const token = Math.random().toString(36).substring(2);
-    //     localStorage.setItem("user_token", JSON.stringify({email, token}))
+        if(!verifyPassword) {
+          return 'Usuário ou senha inválidos'
+        } else {
+          setUser({email,password})
+        }
 
-    //     setUser({email, password})
+      } else {
+        return 'usuário não encontrado na base'
+      }
 
-    //     return;
-    //   } else {
-    //     return 'Email ou senha errado'
-    //   }
-    // } else {
-    //   return "Usuário não cadastrado"
-    // }
+    } else {
+      return 'nenhum usuário cadastrado na base'
+    }
+
+    return null
   }
 
   // CRIAÇÃO DE USUÁRIO
   function signup({email, password}: UserProps) {
-    // REFAZER FLUXO, NÃO TÁ FUNCIONANDO!
-    
-    console.log({email,password})
-    // const usersStorage = JSON.parse(localStorage.getItem("users_db") ?? "[]")
+    // FLUXO SERÁ REFEITO QUANDO FOR DECIDIDO COMO SERÁ O CONTROLE DOS USUÁRIOS
+    const storage = localStorage.getItem('users')
 
-    // const hasUser = usersStorage.filter((user:UserProps) => user.email === email)    
-    // if(hasUser) {
-    //   return 'Já tem uma conta com esse E-mail';
-    // }
+    if(storage) {
+      const userStorage = JSON.parse(storage) 
 
-    // let newUser;
+      const hasUser = userStorage.filter((user: UserProps) => user.email === email)
+      if (hasUser.length > 0) {
+        return 'Usuário já cadastrado'
+      } else {
+        const newUser: UserProps[] = [...userStorage, {email,password}]
+        localStorage.setItem('users', JSON.stringify(newUser))
+      }
+    } else {
+      let newUser: UserProps[] = [{email,password}]
+      localStorage.setItem('users', JSON.stringify(newUser))
+    }
 
-    // if(usersStorage) {
-    //   newUser = [...usersStorage, {email, password}]
-    // } else {
-    //   const user = {
-    //     email,
-    //     password
-    //   }
-
-    //   console.log('User entrando no array: ' + user)
-    //   newUser = [user]
-    // }
-
-    // localStorage.setItem("users_bd", JSON.stringify(newUser));
-
-    // return;
+    return null
   }
 
   // LOGOF
   function signout() {
     setUser(null)
-
-    localStorage.removeItem("user_token");
+    localStorage.removeItem("users");
   }
 
 

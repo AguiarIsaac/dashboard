@@ -6,6 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styles from './styles.module.css'
 import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido.'),
@@ -16,7 +17,9 @@ type LoginProps = z.infer<typeof loginSchema>
 
 export function Login() {
 
-  const { signin,signup } = useAuth()
+  const [errorLogin, setErrorLogin] = useState('')
+
+  const {signin} = useAuth()
   const navigate = useNavigate()
 
   const {
@@ -29,10 +32,16 @@ export function Login() {
   })
 
   function handleLogin(data: LoginProps) {
-    signin(data)
-    // reset()
+    const returnLogin = signin(data)
 
-    navigate("/home");
+    console.log(returnLogin)
+    if(returnLogin != null) {
+      setErrorLogin(returnLogin)
+    } else {
+      reset()
+      navigate("/home");
+    }
+
   }
   
   return (
@@ -60,6 +69,7 @@ export function Login() {
               {...register('email', {required: true})}
             />
             {errors.email && <span style={{color:'#dc2626', fontSize:'14px'}}>{errors.email.message}</span>}
+            {errorLogin.length > 0 && <span style={{color:'#dc2626', fontSize:'14px'}}>{errorLogin}</span>}
           </label>
 
           <label>

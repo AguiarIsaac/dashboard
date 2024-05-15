@@ -1,4 +1,7 @@
 import useAuth from "@/hooks/useAuth";
+import { MainScreen } from "@/layout/mainScreen/MainScreen";
+import { ErrorPage404 } from "@/pages/404";
+import { Create } from "@/pages/create";
 import Dashboard from "@/pages/dashboard";
 import { Login } from "@/pages/login";
 import { Signup } from "@/pages/signup";
@@ -14,14 +17,15 @@ function Private({Item}: any) {
 export function RoutesApp() {
   return (
     <BrowserRouter>
-      <>
-        <Routes>
-          <Route path="/home" element={<Private Item={Dashboard} />} />
-          <Route path="/" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="*" element={<Login />} />
-        </Routes>
-      </>
+      <Routes>
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
+        <Route path="*" element={<ErrorPage404 />} />
+        <Route path="/" element={<Private Item={MainScreen}/>}>
+          <Route path="home" element={<Private Item={Dashboard} />} />
+          <Route path="create" element={<Private Item={Create} />} />
+        </Route>
+      </Routes>
     </BrowserRouter>
   )
 }

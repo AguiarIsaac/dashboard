@@ -2,6 +2,8 @@ import { Bell, CircleHelp, ContactRound, ListOrdered, MessagesSquare, PieChart, 
 import styles from "./styles.module.css";
 import { DropDownMenu } from "./components/dropDownMenu";
 import MoreItensMenu from "./components/MoreItensMenu";
+import { Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export function MainScreen() {
   return (
@@ -9,13 +11,14 @@ export function MainScreen() {
 
       <header className={styles.headerElement}>
         <div>
-          <a href="#">
+          <Link to='/home'>
             <img
               src="/logo.webp"
               alt="Nome da empresa"
               className={styles.imgElement}
             />
-          </a>
+          </Link>
+          
         </div>
         <div>
           <div className={styles.optionsElement}>
@@ -77,6 +80,7 @@ export function MainScreen() {
       </aside>
 
       <main className={styles.mainContentElement}>
+        <Outlet />
       </main>
     </div>
   );

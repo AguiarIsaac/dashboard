@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styles from './styles.module.css'
 import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido.'),
@@ -43,6 +43,47 @@ export function Login() {
     }
 
   }
+
+  // TESTES PARA A RAD
+
+  // useEffect(() => {
+  //   const date = new Date()
+
+  //   const year = date.getFullYear()
+  //   const month: any = (date.getMonth() + 1) < 10 ? `0${date.getMonth() + 1}` : date.getMonth() + 1
+  //   const day = (date.getDate() + 1) < 10 ? `0${date.getDate() + 1}` : date.getDate() + 1
+
+  //   const dateFormated = `${year}-${month}-${day}`
+
+
+  //   function getDays(currentMonth: any, currentYear: any) {
+  //     currentMonth--
+
+
+  //     let date = new Date(currentYear, currentMonth, 1)
+
+  //     var weekDays = []
+
+  //     while(date.getMonth() === currentMonth) {
+        
+  //       const dayString = date.toLocaleDateString('pt-BR', {weekday: "short"})
+  //       const dayNumber = date.getDate() 
+  //       const formatedDay = {
+  //         dayNumber,
+  //         dayString
+  //       }
+
+  //       weekDays.push(formatedDay) 
+  //       date.setDate(date.getDate() + 1)
+  //     }
+
+  //     return weekDays
+  //   }
+
+  //   getDays(5,2024)
+
+
+  // },[])
   
   return (
     <main className={styles.mainLoginElement}>

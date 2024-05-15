@@ -97,7 +97,7 @@ export function Signup() {
             {errorPersonalized.length > 0 &&<span style={{color:'#dc2626', fontSize:'14px'}}>{errorPersonalized}.</span>}
           </label>
 
-          <Button type="submit" title="Entrar">Entrar</Button>        
+          <Button type="submit" title="Criar">Criar</Button>        
         </form>
 
         <footer>

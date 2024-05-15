@@ -32,15 +32,13 @@ export function AuthProvider({children}: ChildrenProps) {
 
   // PEGAR USUÁRIO DO LOCALSTORAGE E SETAR NO ESTADO
   useEffect(() => {
-    const userToken = localStorage.getItem("user_token")
-    const usersStorage = localStorage.getItem("users_bd")
+    const storage = localStorage.getItem('users')
 
-    if(userToken && usersStorage) {
-      const hasUser = JSON.parse(usersStorage)?.filter((user: UserProps) => {
-        user.email === JSON.parse(userToken).email
-      })
+    if(storage) {
+      const userStorage = JSON.parse(storage)
 
-      if(hasUser) setUser(hasUser[0])
+      console.log(userStorage[0])
+      setUser(userStorage[0])
     }
   },[])
 

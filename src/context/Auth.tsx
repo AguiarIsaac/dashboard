@@ -99,7 +99,9 @@ export function AuthProvider({children}: ChildrenProps) {
   // LOGOF
   function signout() {
     setUser(null)
-    localStorage.removeItem("users");
+
+    // por enquanto não é necessario fazer isso
+    // localStorage.removeItem("users");
   }
 
 

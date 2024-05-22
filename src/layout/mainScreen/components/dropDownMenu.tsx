@@ -25,7 +25,8 @@ export function DropDownMenu() {
         <DropdownMenuSeparator />
         <DropdownMenuItem>Perfil</DropdownMenuItem>
         <DropdownMenuItem>
-          <button type="button" onClick={() => {signout()}}>Sair</button>
+        {/* Dessa forma vou corrigir a questão de cliclar em qualquer lugar e executar a funcção. colocando width de 100% */}
+          <button style={{width:'100%'}} type="button" onClick={() => {signout()}}>Sair</button>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

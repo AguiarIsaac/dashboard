@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import styles from './styles.module.css'
 import useAuth from "@/hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const loginSchema = z.object({
   email: z.string().email('Email inválido.'),

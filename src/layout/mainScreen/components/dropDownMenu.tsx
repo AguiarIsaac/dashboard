@@ -7,8 +7,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import useAuth from "@/hooks/useAuth";
 
 export function DropDownMenu() {
+
+  const { signout } = useAuth()
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -18,12 +21,12 @@ export function DropDownMenu() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
-        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuLabel>Minha Conta</DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>Profile</DropdownMenuItem>
-        <DropdownMenuItem>Billing</DropdownMenuItem>
-        <DropdownMenuItem>Team</DropdownMenuItem>
-        <DropdownMenuItem>Subscription</DropdownMenuItem>
+        <DropdownMenuItem>Perfil</DropdownMenuItem>
+        <DropdownMenuItem>
+          <button type="button" onClick={() => {signout()}}>Sair</button>
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );

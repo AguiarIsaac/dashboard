@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ArrowDownUp, BarChart4, BookUser, Files, PackagePlus, ScanBarcode } from "lucide-react";
 import { DropDownMenu } from "./components/dropDownMenu";
 import { Outlet, Link, useLocation } from "react-router-dom";
@@ -17,9 +17,9 @@ export function MainScreen() {
   };
 
   // Vou usar isso aqui depois pra poder colocar a localização no header
-  useEffect(() => {
-    console.log(location.pathname);
-  }, [location.pathname]);
+  // useEffect(() => {
+  //   console.log(location.pathname);
+  // }, [location.pathname]);
 
   return (
     <>

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import ReactApexChart from 'react-apexcharts';
 import { ApexOptions } from 'apexcharts';
+import TitlePage from '@/components/TitlePage';
 
 export default function Dashboard() {
   const [lineSeries] = useState([
@@ -108,9 +109,10 @@ export default function Dashboard() {
   });
   
   return (
-    <>
+    <main>
+      <TitlePage title="Dashboard"/>
       <ReactApexChart options={lineOptions} series={lineSeries} type="line" height={350} />
       <ReactApexChart options={donutOptions} series={donutSeries} type="donut" height={350} />
-    </>
+    </main>
   );
 }

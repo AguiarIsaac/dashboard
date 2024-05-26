@@ -22,7 +22,7 @@ export function RoutesApp() {
         <Route path="/signup" element={<Signup />} />
         <Route path="*" element={<ErrorPage404 />} />
         <Route path="/" element={<Private Item={MainScreen}/>}>
-          <Route path="home" element={<Private Item={Dashboard} />} />
+          <Route path="dashboard" element={<Private Item={Dashboard} />} />
           <Route path="create" element={<Private Item={Create} />} />
         </Route>
       </Routes>

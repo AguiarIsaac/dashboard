@@ -39,7 +39,7 @@ export function Login() {
       setErrorLogin(returnLogin)
     } else {
       reset()
-      navigate("/home");
+      navigate("/dashboard");
     }
 
   }

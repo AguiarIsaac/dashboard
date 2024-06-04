@@ -88,13 +88,13 @@ export function MainScreen() {
             <li>
               <Link
                 title="Estoque"
-                to="create"
+                to="estoque"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <PackagePlus
                   strokeWidth={"2px"}
                   size={24}
-                  color={getIconColor("/create")}
+                  color={getIconColor("/estoque")}
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Estoque</span>
               </Link>
@@ -124,7 +124,7 @@ export function MainScreen() {
                 <ArrowDownUp
                   strokeWidth={"2px"}
                   size={24}
-                  color={getIconColor("/movement")} 
+                  color={getIconColor("/movemento")} 
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">
                   Mov. de Estoque
@@ -134,13 +134,13 @@ export function MainScreen() {
             <li>
               <Link
                 title="Produtos"
-                to="products"
+                to="produtos"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
               >
                 <ScanBarcode
                   strokeWidth={"2px"}
                   size={24}
-                  color={getIconColor("/products")}
+                  color={getIconColor("/produtos")}
                 />
                 <span className="flex-1 ms-3 whitespace-nowrap">Produtos</span>
               </Link>

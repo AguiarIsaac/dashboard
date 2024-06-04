@@ -1,0 +1,25 @@
+.headerProduto {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+}
+
+.lineForm {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.labelForm {
+  width: 100%;
+}
+
+.lineButtons {
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  display: flex;
+  justify-content: flex-end;
+}

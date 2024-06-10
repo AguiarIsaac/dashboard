@@ -47,6 +47,13 @@ export function Produtos() {
                   </label>
                 </div>
 
+                <div className={styles.lineForm}>
+                <label className={styles.labelForm}>
+                    Imagem:
+                    <Input type="file" />
+                  </label>
+                </div>
+
                 <div className={styles.lineButtons}>
                   <Button type="submit">Adicionar</Button>
                   <Button variant="destructive">Cancelar</Button>

@@ -9,8 +9,35 @@ import {
 } from "@/components/ui/dialog";
 import styles from "./styles.module.css";
 import { Input } from "@/components/ui/input";
+import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const produtoSchema = z.object({
+  nome: z.string().min(6, {message: 'O Nome deve conter no mínimo 6 caracteres.'}),
+  descricao: z.string().min(6,{message: 'A descrição deve conter no mínimo 6 caracteres.'}),
+  preco: z.any(),
+  categoria: z.string(),
+  imagem: z.any()
+})
+
+type ProdutoProps = z.infer<typeof produtoSchema>
 
 export function Produtos() {
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: {errors}
+  } = useForm<ProdutoProps>({
+    resolver: zodResolver(produtoSchema)
+  })
+
+  function handleProduto(data: ProdutoProps) {
+    console.log(data)
+  }
+
   return (
     <main>
       <header className={styles.headerProduto}>
@@ -22,35 +49,35 @@ export function Produtos() {
           <DialogContent>
             <DialogHeader>
               <DialogTitle>Adicionar Produto</DialogTitle>
-              <form>
+              <form onSubmit={handleSubmit(handleProduto)}>
                 <div className={styles.lineForm}>
                   <label className={styles.labelForm}>
                     Nome:
-                    <Input type="text" />
+                    <Input type="text" {...register('nome', { required: true })}/>
                   </label>
 
                   <label className={styles.labelForm}>
                     Descrição:
-                    <Input type="text" />
+                    <Input type="text" {...register('descricao', {required: true})}/>
                   </label>
                 </div>
 
                 <div className={styles.lineForm}>
                   <label className={styles.labelForm}>
                     Categoria:
-                    <Input type="text" />
+                    <Input type="text" {...register('categoria', {required: false})}/>
                   </label>
 
                   <label className={styles.labelForm}>
                     Preço unitário:
-                    <Input type="text" />
+                    <Input type="text" {...register('preco', {required: true})}/>
                   </label>
                 </div>
 
                 <div className={styles.lineForm}>
                 <label className={styles.labelForm}>
                     Imagem:
-                    <Input type="file" />
+                    <Input type="file" {...register('imagem', {required: false})}/>
                   </label>
                 </div>
 
